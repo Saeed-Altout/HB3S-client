@@ -27,7 +27,7 @@ export const CardForm = ({
   buttonDescription,
 }: CardFormProps) => {
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="mx-auto w-[350px]">
       <CardHeader>
         <CardTitle className="text-2xl">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

@@ -32,7 +32,7 @@ export function LoginForm() {
     <CardForm
       title="Login"
       description="Enter your email below to login to your account"
-      buttonHref="/register"
+      buttonHref="/auth/register"
       buttonLabel="Sign up"
       buttonDescription="Don't have an account?"
     >
