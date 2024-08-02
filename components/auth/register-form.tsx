@@ -1,5 +1,8 @@
 "use client";
 
+import { useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -10,10 +13,14 @@ import { Button } from "@/components/ui/button";
 import { CardForm } from "@/components/auth/card-form";
 import { FieldForm } from "@/components/auth/field-form";
 
-import { registerSchema } from "@/schemas";
 import { FieldType } from "@/config";
+import { registerSchema } from "@/schemas";
+import { register } from "@/actions/register";
 
 export function RegisterForm() {
+  const [isLoading, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -24,7 +31,16 @@ export function RegisterForm() {
   });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log(values);
+    startTransition(() => {
+      register(values).then((data) => {
+        if (data?.success) {
+          toast.success(data?.success || "Success");
+        }
+        if (data?.error) {
+          toast.error(data?.error || "Something went wrong!");
+        }
+      });
+    });
   };
 
   return (
@@ -44,7 +60,7 @@ export function RegisterForm() {
             placeholder="name"
             control={form.control}
             fieldType={FieldType.INPUT}
-            isLoading={false}
+            isLoading={isLoading}
           />
           <FieldForm
             name="email"
@@ -53,7 +69,7 @@ export function RegisterForm() {
             placeholder="email"
             control={form.control}
             fieldType={FieldType.INPUT}
-            isLoading={false}
+            isLoading={isLoading}
           />
           <FieldForm
             name="password"
@@ -62,9 +78,9 @@ export function RegisterForm() {
             placeholder="******"
             control={form.control}
             fieldType={FieldType.INPUT}
-            isLoading={false}
+            isLoading={isLoading}
           />
-          <Button disabled={false} type="submit" className="w-full">
+          <Button disabled={isLoading} type="submit" className="w-full">
             Sign up
           </Button>
         </form>
