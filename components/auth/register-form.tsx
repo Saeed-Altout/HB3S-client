@@ -34,7 +34,7 @@ export function RegisterForm() {
     startTransition(() => {
       register(values).then((data) => {
         if (data?.success) {
-          toast.success(data?.success || "Success");
+          router.push("/auth/login");
         }
         if (data?.error) {
           toast.error(data?.error || "Something went wrong!");

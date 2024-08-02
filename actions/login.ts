@@ -29,6 +29,7 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
+    return { success: "Success sign in" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -41,6 +42,4 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
 
     throw error;
   }
-
-  return { success: "Sign in success" };
 };

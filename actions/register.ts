@@ -32,7 +32,7 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
         password: hashedPassword,
       },
     });
-    return { success: "Email sent!" };
+    return { success: "Success Sign up" };
   } catch (error) {
     return { error: "Error" };
   }
