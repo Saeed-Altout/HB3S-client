@@ -1,3 +1,5 @@
+import { Navbar } from "./_components/navbar";
+
 export default function DashboardLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="h-full w-full flex flex-col">
-      Navbar
+      <Navbar />
       <main className="flex-1 flex flex-col">{children}</main>
       Footer
     </div>
