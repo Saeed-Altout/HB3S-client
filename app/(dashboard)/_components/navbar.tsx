@@ -1,28 +1,18 @@
-"use client";
-
-import Link from "next/link";
-import Image from "next/image";
-
 import { Menu } from "lucide-react";
+
+import { Nav } from "@/components/nav";
+import { Logo } from "@/components/logo";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { routes } from "@/config";
+import { UserButton } from "@/components/auth/user-button";
 
 export const Navbar = () => {
   return (
     <header className="sticky top-0 h-16 flex items-center justify-between gap-4 border-b bg-background px-4 md:px-6 z-50">
-      <nav className="relative hidden gap-5 md:flex flex-row items-center font-medium ">
+      <nav className=" relative hidden gap-5 md:flex flex-row items-center font-medium ">
         <Logo />
-        {routes.map(({ label, href }, index) => (
-          <Link
-            key={index}
-            href={href}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            {label}
-          </Link>
-        ))}
+        <Nav />
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -34,27 +24,11 @@ export const Navbar = () => {
         <SheetContent side="left" className="z-[10000]">
           <nav className="grid gap-4 font-medium">
             <Logo />
-            {routes.map(({ label, href }, index) => (
-              <Link
-                key={index}
-                href={href}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                {label}
-              </Link>
-            ))}
+            <Nav />
           </nav>
         </SheetContent>
       </Sheet>
-      logout
+      <UserButton />
     </header>
-  );
-};
-
-export const Logo = () => {
-  return (
-    <Link href="#" className="w-fit">
-      <Image src="/logo.png" alt="Logo" width={70} height={50} />
-    </Link>
   );
 };
